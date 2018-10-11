@@ -170,4 +170,37 @@ The final piece of code included is timer.h
 
 This file includes the basics of pseudo asynchroneous programming. Basically, it includes a timeout and an interval class, both wrapped up in an optionnal Timer class.
 
-.......
+Simillarly to the buttons, you can either use the Timer class to create multiple timouts and intervals, or do the one by one.
+
+I'll just list the functions for each class, since it's close to the buttons.h behaviour : 
+
+For the Timer class : 
+    
+    // takes the interval and the callback function as parameters, and returns the id of the interval
+    char SetInterval(long time, void (*cb)());
+    // clears the interval of a given id
+    void ClearInterval(char id);
+    // creates a timeout, taking the interval and the callback as parameters
+    void SetTimeout(long time, void (*cb)());
+    // updates all intervals and timeouts
+    void Update();
+    
+For the Timeout class : 
+
+    // constructor, takes the time and the callback as parameters
+    Timeout(long time, void (*cb)());
+    // returns wether the timeout is done or not
+    char IsDone();
+    // updates the timeout
+    void Update();
+    
+For the Interval class : 
+
+    // constructor, takes the time and callback as parameters
+    Interval(long time, void (*cb)());
+    // clears the Interval
+    void Clear();
+    // updates the interval
+    void Update();
+    // returns wether the interval is cleared or not
+    char IsCleared();
