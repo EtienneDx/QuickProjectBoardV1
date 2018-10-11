@@ -116,3 +116,58 @@ When you use multiple buttons, you can also use the ButtonEvents class, to hold 
     {
       // do something
     }
+
+You can always deactivate a button's callbacks by calling the clear function. If you have access to the button object (example 1), you can use :
+
+    b.Clear();
+
+If you're using the ButtonEvents object, you can do it like this : 
+
+    #include "Buttons.h"
+    
+    ButtonEvents buttons;
+    
+    char b;
+    
+    void setup()
+    {
+      // with a button on the pin 10 and 12
+      b = buttons.registerCallback(10, BUTTON_DOWN, &on_button_down);// we keep the adress of the button
+      buttons.registerCallback(10, BUTTON_UP, &on_button_up);
+      buttons.registerCallback(12, BUTTON_DOWN, &on_button_12_down);
+      buttons.registerCallback(12, BUTTON_UP, &on_button_12_up);
+    }
+    
+    void loop()
+    {
+      buttons.Update();
+    }
+    
+    void on_button_down()
+    {
+      // do something
+      buttons.Clear(b);// we clear 
+    }
+    
+    void on_button_up()
+    {
+      // do something
+    }
+    
+    void on_button_12_down()
+    {
+      // do something
+    }
+    
+    void on_button_12_up()
+    {
+      // do something
+    }
+    
+### Timer features
+
+The final piece of code included is timer.h
+
+This file includes the basics of pseudo asynchroneous programming. Basically, it includes a timeout and an interval class, both wrapped up in an optionnal Timer class.
+
+.......
