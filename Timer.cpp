@@ -30,14 +30,14 @@ void Timer::Update()
   }
 }
 
-void Timer::SetTimeout(int time, void (*cb)())
+char Timer::SetTimeout(int time, void (*cb)())
 {
   for (int i = 0; i < this->timeoutsCount; i++)
   {
     if(this->timeouts[i].IsDone())
     {
       this->timeouts[i] = *(new Timeout(time, cb));
-      return;
+      return i;
     }
   }
 }
@@ -59,6 +59,11 @@ void Timer::ClearInterval(char id)
   this->intervals[id].Clear();
 }
 
+void Timer::CancelTimeout(char id)
+{
+  this->timeouts[id].Cancel();
+}
+
 /****Timeout****/
 
 Timeout::Timeout()
@@ -69,6 +74,7 @@ Timeout::Timeout()
 Timeout::Timeout(long time, void (*cb)()) : time(time), cb(cb)
 {
   this->start = millis();
+  this->done = 0;
 }
 
 void Timeout::Update()
@@ -86,6 +92,11 @@ void Timeout::Update()
 char Timeout::IsDone()
 {
   return this->done;
+}
+
+void Timeout::Cancel()
+{
+  this->done = 1;
 }
 
 /****Interval****/

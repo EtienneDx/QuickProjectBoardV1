@@ -6,7 +6,8 @@ class Timer
   public:
     Timer(char timeoutsCount = 20, char intervalsCount = 20);
     void Update();
-    void SetTimeout(int time, void (*cb)());
+    char SetTimeout(int time, void (*cb)());
+    void CancelTimeout(char id);
     char SetInterval(int time, void (*cb)());
     void ClearInterval(char id);
   private:
@@ -23,6 +24,7 @@ class Timeout
     Timeout(long time, void (*cb)());
     void Update();
     char IsDone();
+    void Cancel();
   private:
     long start;
     long time;
